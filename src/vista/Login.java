@@ -18,6 +18,24 @@ public class Login extends Screen
         initComponents();
         
         super.inicialize(this.getWidth(), this.getHeight(), "Login");
+        
+        /* this.addWindowListener(new WindowAdapter() {
+        
+            @Override
+            public void windowClosing(WindowEvent event)
+            {
+                try 
+                {
+                    co.desconexion();
+                } 
+                
+                catch (SQLException e) 
+                {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+        }   
+        ); */
     }
 
     /**
@@ -92,9 +110,7 @@ public class Login extends Screen
         
         try
         {   
-            conexionOracle co = new conexionOracle(tf_Username.getText(), String.valueOf(pf_Pass.getPassword()));
-
-            co.desconexion();
+            new Opciones(new conexionOracle(tf_Username.getText(), String.valueOf(pf_Pass.getPassword())));
         } 
 
         catch (ClassNotFoundException | SQLException e) 
