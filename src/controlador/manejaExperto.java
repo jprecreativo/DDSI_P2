@@ -1,5 +1,6 @@
-package Persistencia;
+package controlador;
 
+import modelo.experto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

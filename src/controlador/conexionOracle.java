@@ -1,4 +1,4 @@
-package Persistencia;
+package controlador;
 import java.sql.*;
 
 public class conexionOracle {
@@ -6,13 +6,15 @@ public class conexionOracle {
     
     /** 
       Establece la conexión con el servidor
+     * @param username
+     * @param pass
     @throws Exception si ocurre cualquier anormalidad
     */
-    public conexionOracle() throws Exception 
+    public conexionOracle(String username, String pass) throws ClassNotFoundException, SQLException 
     {
         Class.forName("oracle.jdbc.OracleDriver");
         
-        co = DriverManager.getConnection("jdbc:oracle:thin:@172.17.20.75:1521:rabida", "DDSI_040", "85AP7L"); 
+        co = DriverManager.getConnection("jdbc:oracle:thin:@172.17.20.75:1521:rabida", username, pass); 
     }  
     
     /** 

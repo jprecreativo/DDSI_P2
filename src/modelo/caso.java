@@ -1,4 +1,4 @@
-package Persistencia;
+package modelo;
 /**
  * Caso 
  */

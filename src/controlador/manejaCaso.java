@@ -1,5 +1,6 @@
-package Persistencia;
+package controlador;
 
+import modelo.caso;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
