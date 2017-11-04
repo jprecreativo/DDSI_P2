@@ -99,15 +99,7 @@ public class Opciones extends Screen
             @Override
             public void mouseClicked(MouseEvent event)
             {
-                try 
-                {
-                    
-                } 
-                
-                catch (SQLException e) 
-                {
-                    System.out.println("Error: " + e.getMessage());
-                }
+                new Consultar(co);
             }
         });
         

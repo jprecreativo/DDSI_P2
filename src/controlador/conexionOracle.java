@@ -1,8 +1,9 @@
 package controlador;
 import java.sql.*;
 
-public class conexionOracle {
-    protected static Connection co = null;
+public class conexionOracle 
+{
+    public static Connection co = null;
     
     /** 
       Establece la conexión con el servidor
