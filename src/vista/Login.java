@@ -1,7 +1,10 @@
 package vista;
 
 import controlador.conexionOracle;
+import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,24 +21,22 @@ public class Login extends Screen
         initComponents();
         
         super.inicialize(this.getWidth(), this.getHeight(), "Login");
-        
-        /* this.addWindowListener(new WindowAdapter() {
-        
+        this.setSubmit();
+    }
+    
+    private void setSubmit()
+    {
+        Action enter = new AbstractAction("Enter") {
+            
             @Override
-            public void windowClosing(WindowEvent event)
+            public void actionPerformed(ActionEvent e) 
             {
-                try 
-                {
-                    co.desconexion();
-                } 
                 
-                catch (SQLException e) 
-                {
-                    System.out.println("Error: " + e.getMessage());
-                }
             }
-        }   
-        ); */
+        };
+        
+        bt_Conectar.setAction(enter);
+        this.getRootPane().setDefaultButton(bt_Conectar);
     }
 
     /**

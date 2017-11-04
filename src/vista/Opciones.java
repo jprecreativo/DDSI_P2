@@ -7,8 +7,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -54,6 +52,70 @@ public class Opciones extends Screen
     
     private void loadImages()
     {
+        this.loadSalir();
+        this.loadInsertar();
+        this.loadConsultar();
+        this.loadColaborar();
+    }
+    
+    private void loadColaborar()
+    {
+        URL salirURL = this.getClass().getResource("Colaborar.png");
+        JLabel labelInsertar = new JLabel(new ImageIcon(salirURL));
+        
+        labelInsertar.setBounds(0, 0, jp_colaboraciones.getWidth(), jp_colaboraciones.getHeight());
+        labelInsertar.setToolTipText("Insertar una colaboración");
+        
+        labelInsertar.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseClicked(MouseEvent event)
+            {
+                try 
+                {
+                    
+                } 
+                
+                catch (SQLException e) 
+                {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+        });
+        
+        jp_colaboraciones.add(labelInsertar);
+    }
+    
+    private void loadConsultar()
+    {
+        URL salirURL = this.getClass().getResource("Consultar.png");
+        JLabel labelInsertar = new JLabel(new ImageIcon(salirURL));
+        
+        labelInsertar.setBounds(0, 0, jp_consultarExperto.getWidth(), jp_consultarExperto.getHeight());
+        labelInsertar.setToolTipText("Consulta expertos por nacionalidad");
+        
+        labelInsertar.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseClicked(MouseEvent event)
+            {
+                try 
+                {
+                    
+                } 
+                
+                catch (SQLException e) 
+                {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+        });
+        
+        jp_consultarExperto.add(labelInsertar);
+    }
+    
+    private void loadSalir()
+    {
         URL salirURL = this.getClass().getResource("Salir.png");
         JLabel labelSalir = new JLabel(new ImageIcon(salirURL));
         
@@ -79,6 +141,34 @@ public class Opciones extends Screen
         });
         
         jp_Salir.add(labelSalir);
+    }
+    
+    private void loadInsertar()
+    {
+        URL salirURL = this.getClass().getResource("Insertar.png");
+        JLabel labelInsertar = new JLabel(new ImageIcon(salirURL));
+        
+        labelInsertar.setBounds(0, 0, jp_insertarExperto.getWidth(), jp_insertarExperto.getHeight());
+        labelInsertar.setToolTipText("Insertar un experto");
+        
+        labelInsertar.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseClicked(MouseEvent event)
+            {
+                try 
+                {
+                    
+                } 
+                
+                catch (SQLException e) 
+                {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+        });
+        
+        jp_insertarExperto.add(labelInsertar);
     }
 
     /**
@@ -150,10 +240,6 @@ public class Opciones extends Screen
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jp_consultarExperto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,6 +250,10 @@ public class Opciones extends Screen
                 .addGap(18, 18, 18)
                 .addComponent(jp_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
