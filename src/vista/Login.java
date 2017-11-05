@@ -116,9 +116,7 @@ public class Login extends Screen
 
         catch (ClassNotFoundException | SQLException e) 
         {
-            System.out.println("Error: " + e.getMessage());
-            
-            JOptionPane.showMessageDialog(this, "Campos introducidos no válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bt_ConectarActionPerformed
 

@@ -1,8 +1,7 @@
 package vista;
 
-import controlador.CambioNacionalidad;
+import controlador.Nacionalidad;
 import controlador.conexionOracle;
-import static controlador.conexionOracle.co;
 import controlador.manejaExperto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +30,7 @@ public class Consultar extends Screen
         super.inicialize(this.getWidth(), this.getHeight(), "Consultar expertos por nacionalidad");
         this.obtenerNacionalidades();
         
-        cb_nacionalidades.addItemListener(new CambioNacionalidad(co));
+        cb_nacionalidades.addItemListener(new Nacionalidad(co));
     }
     
     public static void rellenarTabla(ArrayList<experto> expertos)
@@ -53,8 +52,7 @@ public class Consultar extends Screen
     {
         try 
         {
-            Statement consultaNacionalidades = conexionOracle.co.createStatement();
-            ResultSet nacionalidades = consultaNacionalidades.executeQuery("SELECT DISTINCT PAIS FROM EXPERTO");
+            ResultSet nacionalidades = Nacionalidad.obtenerNacionalidades();
             
             while(nacionalidades.next())
                 cb_nacionalidades.addItem(nacionalidades.getString(1));
@@ -83,7 +81,7 @@ public class Consultar extends Screen
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_Datos = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Elige una nacionalidad:");

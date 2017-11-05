@@ -1,5 +1,6 @@
 package vista;
 
+import controlador.Factory;
 import controlador.conexionOracle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -71,15 +72,7 @@ public class Opciones extends Screen
             @Override
             public void mouseClicked(MouseEvent event)
             {
-                try 
-                {
-                    
-                } 
-                
-                catch (SQLException e) 
-                {
-                    System.out.println("Error: " + e.getMessage());
-                }
+                Factory.factoryMethod("Colaborar");
             }
         });
         
@@ -99,7 +92,7 @@ public class Opciones extends Screen
             @Override
             public void mouseClicked(MouseEvent event)
             {
-                new Consultar(co);
+                Factory.factoryMethod("Consultar");
             }
         });
         
@@ -148,15 +141,7 @@ public class Opciones extends Screen
             @Override
             public void mouseClicked(MouseEvent event)
             {
-                try 
-                {
-                    
-                } 
-                
-                catch (SQLException e) 
-                {
-                    System.out.println("Error: " + e.getMessage());
-                }
+                Factory.factoryMethod("Insertar");
             }
         });
         

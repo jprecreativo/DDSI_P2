@@ -2,20 +2,19 @@ package controlador;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import modelo.experto;
 import vista.Consultar;
 
 /**
  *
  * @author jprecreativo
  */
-public class CambioNacionalidad implements ItemListener
+public class Nacionalidad implements ItemListener
 {
     private final conexionOracle co;
 
-    public CambioNacionalidad(conexionOracle co) 
+    public Nacionalidad(conexionOracle co) 
     {
         this.co = co;
     }
@@ -38,5 +37,10 @@ public class CambioNacionalidad implements ItemListener
                 System.out.println("Error: " + e.getMessage());
             }
         }
+    }
+    
+    public static ResultSet obtenerNacionalidades() throws SQLException
+    {
+        return conexionOracle.co.createStatement().executeQuery("SELECT DISTINCT PAIS FROM EXPERTO");
     }
 }

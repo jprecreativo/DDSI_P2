@@ -88,20 +88,33 @@ public class manejaExperto {
      /**
     * inserta un experto
     * @param exp
-     * @return 
-    * @throws SQLException si ocurre alguna anomalía
+     * @return
      */
-    public boolean insertaExperto(experto exp) throws SQLException 
+    public boolean insertaExperto(experto exp)
     {
         try 
         {
-            ps = conexionOracle.co.prepareStatement("INSERT INTO EXPERTO VALUES (?, ?, ?, ?, ?)");
+            if("...".equals(exp.getSexo()))   // No se especifica sexo.
+            {
+                ps = conexionOracle.co.prepareStatement("INSERT INTO EXPERTO (CODEXPERTO, NOMBRE, PAIS, ESPECIALIDAD)"
+                                                      + " VALUES (?, ?, ?, ?)");
 
-            ps.setString(1, exp.getCodExperto());
-            ps.setString(2, exp.getNombre());
-            ps.setString(3, exp.getPais());
-            ps.setString(4, exp.getSexo());
-            ps.setString(5, exp.getEspecialidad());
+                ps.setString(1, exp.getCodExperto());
+                ps.setString(2, exp.getNombre());
+                ps.setString(3, exp.getPais());
+                ps.setString(4, exp.getEspecialidad());
+            }
+            
+            else   // Se especifica sexo.
+            {
+                ps = conexionOracle.co.prepareStatement("INSERT INTO EXPERTO VALUES (?, ?, ?, ?, ?)");
+
+                ps.setString(1, exp.getCodExperto());
+                ps.setString(2, exp.getNombre());
+                ps.setString(3, exp.getPais());
+                ps.setString(4, exp.getSexo());
+                ps.setString(5, exp.getEspecialidad());
+            }
             
             ps.executeUpdate();
             ps.close();
