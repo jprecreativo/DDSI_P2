@@ -29,6 +29,8 @@ public class Opciones extends Screen
         
         this.co = co;
         
+        Factory.co = co;
+        
         this.addWindowListener(new WindowAdapter() {
         
             @Override
@@ -72,7 +74,7 @@ public class Opciones extends Screen
             @Override
             public void mouseClicked(MouseEvent event)
             {
-                Factory.factoryMethod("Colaborar");
+                Factory.factoryMethod("Colaborar", "");
             }
         });
         
@@ -92,7 +94,7 @@ public class Opciones extends Screen
             @Override
             public void mouseClicked(MouseEvent event)
             {
-                Factory.factoryMethod("Consultar");
+                Factory.factoryMethod("Consultar", "");
             }
         });
         
@@ -130,7 +132,7 @@ public class Opciones extends Screen
     
     private void loadInsertar()
     {
-        URL salirURL = this.getClass().getResource("Insertar.png");
+        URL salirURL = this.getClass().getResource("InsertarExperto.png");
         JLabel labelInsertar = new JLabel(new ImageIcon(salirURL));
         
         labelInsertar.setBounds(0, 0, jp_insertarExperto.getWidth(), jp_insertarExperto.getHeight());
@@ -141,7 +143,7 @@ public class Opciones extends Screen
             @Override
             public void mouseClicked(MouseEvent event)
             {
-                Factory.factoryMethod("Insertar");
+                Factory.factoryMethod("Insertar", "");
             }
         });
         

@@ -2,7 +2,8 @@ package controlador;
 
 import vista.Colaborar;
 import vista.Consultar;
-import vista.Insertar;
+import vista.InsertarExperto;
+import vista.Screen;
 
 /**
  *
@@ -10,21 +11,12 @@ import vista.Insertar;
  */
 public abstract class Factory 
 {
-    private static conexionOracle co;
-    private static Colaborar colaborar;
-    private static Consultar consultar;
-    private static Insertar insertar;
-
-    public Factory(conexionOracle co) 
-    {
-        Factory.co = co;
-        
-        colaborar = null;
-        consultar = null;
-        insertar = null;
-    }
+    public static conexionOracle co;
+    private static Colaborar colaborar = null;
+    private static Consultar consultar = null;
+    private static InsertarExperto insertar = null;
     
-    public static void factoryMethod(String screen)
+    public static void factoryMethod(String screen, String codExperto)
     {
         switch(screen)
         {
@@ -32,7 +24,7 @@ public abstract class Factory
                                 if(colaborar != null)
                                     colaborar.dispose();
                                 
-                                colaborar = new Colaborar(co);
+                                colaborar = new Colaborar(Factory.co);
                                 
                                 break;
                                 
@@ -40,7 +32,7 @@ public abstract class Factory
                                 if(consultar != null)
                                     consultar.dispose();
                                 
-                                consultar = new Consultar(co);
+                                consultar = new Consultar(Factory.co);
                                 
                                 break;
                                 
@@ -48,7 +40,7 @@ public abstract class Factory
                                 if(insertar != null)
                                     insertar.dispose();
                                 
-                                insertar = new Insertar(co);
+                                insertar = new InsertarExperto(Factory.co, codExperto);
                                 
                                 break;
         }    

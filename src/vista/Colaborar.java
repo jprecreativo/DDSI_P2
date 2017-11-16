@@ -1,6 +1,17 @@
 package vista;
 
+import controlador.Nacionalidad;
 import controlador.conexionOracle;
+import controlador.manejaCaso;
+import controlador.manejaColabora;
+import controlador.manejaExperto;
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import modelo.caso;
+import modelo.colabora;
+import modelo.experto;
 
 /**
  *
@@ -8,10 +19,13 @@ import controlador.conexionOracle;
  */
 public class Colaborar extends Screen
 {
-    private conexionOracle co;
+    private final conexionOracle co;
+    private boolean existeExperto;
+    private boolean existeCaso;
 
     /**
      * Creates new form Colaborar
+     * @param co
      */
     public Colaborar(conexionOracle co) 
     {
@@ -20,6 +34,25 @@ public class Colaborar extends Screen
         this.co = co;
         
         super.inicialize(this.getWidth(), this.getHeight(), "Insertar colaboración");
+        
+        ta_des.setLineWrap(true);   // Se logra que haya salto de línea en el TextArea.
+        ta_des.setWrapStyleWord(true);   // Se impide la división de palabras en el TestArea.
+    }
+    
+    private void obtenerNacionalidades()
+    {
+        try 
+        {
+            ResultSet nacionalidades = Nacionalidad.obtenerNacionalidades();
+            
+            while(nacionalidades.next())
+                cb_nacionalidad.addItem(nacionalidades.getString(1));
+        } 
+        
+        catch (SQLException e) 
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -31,57 +64,397 @@ public class Colaborar extends Screen
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        tf_codExperto = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        tf_codCaso = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tf_fecha = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ta_des = new javax.swing.JTextArea();
+        bt_insertar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        tf_nombreExperto = new javax.swing.JTextField();
+        cb_sexo = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        cb_nacionalidad = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        tf_especialidad = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        tf_nombreCaso = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        tf_fechaIni = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        tf_fechaFin = new javax.swing.JTextField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel1.setText("Código del experto:");
+
+        tf_codExperto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tf_codExpertoKeyPressed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel2.setText("Código del caso:");
+
+        tf_codCaso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tf_codCasoKeyPressed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setText("Fecha colaboración:");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setText("Descripción de la colaboración:");
+
+        ta_des.setColumns(20);
+        ta_des.setRows(5);
+        jScrollPane1.setViewportView(ta_des);
+
+        bt_insertar.setText("Insertar");
+        bt_insertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_insertarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setText("Nombre:");
+
+        tf_nombreExperto.setEnabled(false);
+
+        cb_sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "F", "M" }));
+        cb_sexo.setEnabled(false);
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel6.setText("Sexo:");
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel7.setText("País:");
+
+        cb_nacionalidad.setEditable(true);
+        cb_nacionalidad.setEnabled(false);
+
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel8.setText("Especialidad:");
+
+        tf_especialidad.setEnabled(false);
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel9.setText("Nombre:");
+
+        tf_nombreCaso.setEnabled(false);
+
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel10.setText("Fecha de inicio:");
+
+        tf_fechaIni.setEnabled(false);
+
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel11.setText("Fecha de fin:");
+
+        tf_fechaFin.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tf_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(52, 52, 52))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tf_nombreExperto))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tf_codExperto, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tf_nombreCaso))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tf_codCaso, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cb_nacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tf_especialidad))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tf_fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tf_fechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(16, 16, 16))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(288, 288, 288)
+                .addComponent(bt_insertar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_nacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(tf_codExperto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(tf_nombreExperto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(tf_especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(cb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(tf_codCaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(tf_fechaIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(tf_nombreCaso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(tf_fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(tf_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32)
+                .addComponent(bt_insertar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Colaborar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Colaborar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Colaborar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Colaborar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void expertoInsertado()
+    {
+        if(!existeExperto)
+            {
+                experto ex = new experto(tf_codExperto.getText(),
+                                 tf_nombreExperto.getText(),
+                                 cb_nacionalidad.getSelectedItem().toString(),
+                                 cb_sexo.getSelectedItem().toString(),
+                                 tf_especialidad.getText());
+        
+        
+                if(new manejaExperto(co).insertaExperto(ex))
+                    JOptionPane.showMessageDialog(this, "Experto insertado con éxito.", "Inserción realizada", JOptionPane.INFORMATION_MESSAGE);
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Colaborar().setVisible(true);
+                else
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error, no se insertó el experto.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        });
     }
+    
+    private void casoInsertado() throws SQLException
+    {
+        if(!existeCaso)
+            {
+                caso c = new caso(tf_codCaso.getText(),
+                                 tf_nombreCaso.getText(),
+                                 tf_fechaIni.getText(),
+                                 tf_fechaFin.getText());
+        
+        
+                if(new manejaCaso(co).insertaCaso(c))
+                    JOptionPane.showMessageDialog(this, "Caso insertado con éxito.", "Inserción realizada", JOptionPane.INFORMATION_MESSAGE);
+
+                else
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error, no se insertó el caso.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+    }
+    
+    private void colaboraciónInsertada() throws SQLException
+    {
+        manejaColabora mc = new manejaColabora(co);
+            
+        if(!mc.existeColaboracion(tf_codExperto.getText(), tf_codCaso.getText()))
+        {
+            mc.insertaColaboracion(new colabora(tf_codExperto.getText(), tf_codCaso.getText(), tf_fecha.getText(), ta_des.getText()));
+            
+            co.finTransaccionCommit();
+            
+            JOptionPane.showMessageDialog(this, "Se ha insertado la colaboración.");
+        }
+
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Ya existe la colaboración.", "Colaboración no insertada", JOptionPane.ERROR_MESSAGE);
+
+            co.finTransaccionRollback();
+        }
+    }
+    
+    private void bt_insertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_insertarActionPerformed
+        
+        try 
+        {
+            co.inicioTransaccion();
+            
+            this.expertoInsertado();
+            this.casoInsertado();
+            this.colaboraciónInsertada();
+        } 
+        
+        catch (SQLException e1) 
+        {
+            System.out.println("Error: " + e1.getMessage());
+            
+            try 
+            {
+                co.finTransaccionRollback();
+            } 
+            
+            catch (SQLException e2) 
+            {
+                System.out.println("Error: " + e2.getMessage());
+            }
+        }
+    }//GEN-LAST:event_bt_insertarActionPerformed
+
+    private void tf_codExpertoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_codExpertoKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            try 
+            {
+                if(new manejaExperto(co).existeExperto(tf_codExperto.getText()))
+                {
+                    JOptionPane.showMessageDialog(this, "El experto ya existe, continua comprobando el caso.");
+                    
+                    existeExperto = true;
+                }
+                
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "El experto no existe, rellena sus datos.");
+                    
+                    tf_nombreExperto.setEnabled(true);
+                    tf_especialidad.setEnabled(true);
+                    cb_nacionalidad.setEnabled(true);
+                    cb_sexo.setEnabled(true);
+                    
+                    this.obtenerNacionalidades();
+                    
+                    existeExperto = false;
+                }
+            } 
+            
+            catch (SQLException e) 
+            {
+                System.out.println("Error: " + e.getMessage());
+            }
+    }//GEN-LAST:event_tf_codExpertoKeyPressed
+
+    private void tf_codCasoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_codCasoKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            try 
+            {
+                if(new manejaCaso(co).existeCaso(tf_codCaso.getText()))
+                {
+                    JOptionPane.showMessageDialog(this, "El caso ya existe, contina rellenando los datos de la colaboración.");
+                    
+                    existeCaso = true;
+                }
+                
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "El caso no existe, rellena sus datos.");
+                    
+                    tf_nombreCaso.setEnabled(true);
+                    tf_fechaIni.setEnabled(true);
+                    tf_fechaFin.setEnabled(true);
+                    
+                    existeCaso = false;
+                }
+            } 
+            
+            catch (SQLException e) 
+            {
+                System.out.println("Error: " + e.getMessage());
+            }
+    }//GEN-LAST:event_tf_codCasoKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_insertar;
+    private javax.swing.JComboBox<String> cb_nacionalidad;
+    private javax.swing.JComboBox<String> cb_sexo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea ta_des;
+    private javax.swing.JTextField tf_codCaso;
+    private javax.swing.JTextField tf_codExperto;
+    private javax.swing.JTextField tf_especialidad;
+    private javax.swing.JTextField tf_fecha;
+    private javax.swing.JTextField tf_fechaFin;
+    private javax.swing.JTextField tf_fechaIni;
+    private javax.swing.JTextField tf_nombreCaso;
+    private javax.swing.JTextField tf_nombreExperto;
     // End of variables declaration//GEN-END:variables
 }

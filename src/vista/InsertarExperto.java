@@ -5,8 +5,6 @@ import controlador.conexionOracle;
 import controlador.manejaExperto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.experto;
 
@@ -14,21 +12,29 @@ import modelo.experto;
  *
  * @author jprecreativo
  */
-public class Insertar extends Screen
+public class InsertarExperto extends Screen
 {
     private final conexionOracle co;
     
     /**
      * Creates new form Insertar
+     * @param co
+     * @param codExperto
      */
-    public Insertar(conexionOracle co) 
+    public InsertarExperto(conexionOracle co, String codExperto) 
     {
         initComponents();
         
         this.co = co;
+        this.obtenerNacionalidades();
+        
+        if(!"".equals(codExperto))
+        {
+            tf_codExperto.setText(codExperto);
+            tf_codExperto.setEditable(false);
+        }
         
         super.inicialize(this.getWidth(), this.getHeight(), "Insertar un experto");
-        this.obtenerNacionalidades();
     }
     
     private void obtenerNacionalidades()

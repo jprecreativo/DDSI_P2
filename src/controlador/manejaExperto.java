@@ -67,24 +67,6 @@ public class manejaExperto {
         return rs.next();
     }
     
-    /* private boolean compruebExperto(experto exp)
-    {
-        
-        if(null == exp.getCodExperto() || "".equals(exp.getCodExperto()))
-            return false;
-        
-        if(null == exp.getNombre()|| "".equals(exp.getNombre()))
-            return false;
-        
-        if(null == exp.getPais()|| "".equals(exp.getPais()))
-            return false;
-        
-        if(null == exp.getEspecialidad()|| "".equals(exp.getEspecialidad()))
-            return false;
-        
-        return true;
-    } */
-    
      /**
     * inserta un experto
     * @param exp
